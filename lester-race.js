@@ -9,6 +9,10 @@ var s = http.createServer(function (req,res){
 	// res.end("hello\n");
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
+	console.info(query);
+	if(query.reset==1){
+		players = new Object();
+	}
 	if(query.refresh==1){
 		players[query.player]=query.pos;
 		console.info(players);
