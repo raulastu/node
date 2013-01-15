@@ -15,20 +15,15 @@ var s = http.createServer(function (req,res){
 		var jsonString = JSON.stringify(players);
 		res.end('_testcb(\''+jsonString+'\')');
 	}else{
-		if(query.player==3){
-			players=new Object();
-		}else{
-			players[query.player]=0;
-			console.info(players);
-
-			var x = completed()+"";
-			res.end('_testcb(\'{"r": "' + x + '"}\')');
-		}		
+		players[query.player]=0;
+		console.info(players);
+		var x = completed()+"";
+		res.end('_testcb(\'{"r": "' + x + '"}\')');
 	}
 });
 
 completed = function (){
-	if(players['1']==0 && players['2']==0)
+	if(players['1']==0 && players['2']==0 && players['3']==0)
 		return 1;
 	return 0;
 }
