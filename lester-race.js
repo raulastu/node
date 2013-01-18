@@ -1,7 +1,7 @@
 var http=require('http');
 var url  = require('url');
 var players = new Object();
-
+var positions = 3;
 var sockets=[];
 
 var s = http.createServer(function (req,res){
@@ -10,19 +10,25 @@ var s = http.createServer(function (req,res){
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	console.info(query);
-	if(query.reset==1){
-		players = new Object();
+	if(query.finish==1){
+		res.end('_testcb(\''+positions+++'\')');
 	}
+	console.log(query.player);
 	if(query.refresh==1){
 		players[query.player]=query.pos;
-		console.info(players);
+		if(query.pos==725){
+			players[query.player]+=positions--;
+		}
 		var jsonString = JSON.stringify(players);
 		res.end('_testcb(\''+jsonString+'\')');
-	}else{
+	}else if(query.player!=undefined){
+		positions=3;
 		players[query.player]=0;
 		console.info(players);
 		var x = completed()+"";
 		res.end('_testcb(\'{"r": "' + x + '"}\')');
+	}else{
+		res.end('hi :9');
 	}
 });
 
